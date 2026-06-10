@@ -549,3 +549,56 @@ section.visible {
   opacity: 1;
   transform: translateY(0);
 }
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 10vw;
+  background-color: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--lightest-navy);
+  transition: all 0.3s ease;
+}
+
+.nav-name {
+  color: var(--green);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: default;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: var(--lightest-slate);
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--green);
+}
+
+.nav-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-icons a {
+  color: var(--lightest-slate);
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.nav-icons a:hover {
+  color: var(--green);
+}
