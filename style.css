@@ -44,29 +44,30 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* changed */
-  padding: 0 10vw;
+  justify-content: space-between;
+  padding: 80px 10vw 0;
   gap: 4vw;
+  overflow: hidden;      /* prevents ASCII from creating horizontal scroll */
 }
-
 .hero-ascii {
   color: var(--green);
-  font-size: 16px;
-  line-height: 1.2;
-  opacity: 0.85;
+  opacity: 0.75;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-width: 250px;
+  justify-content: flex-end;
   flex-shrink: 0;
+  max-width: 45%;        /* stop it overflowing on smaller screens */
 }
 
 #ascii-art {
   font-family: monospace;
+  font-size: 5px;        /* YOUR file had 16px — this is the main fix */
+  line-height: 1.25;
+  letter-spacing: 2px;   /* horizontal spacing so chars don't squish */
   white-space: pre;
   margin: 0;
+  overflow: hidden;
 }
-
 .hero-content {
   max-width: 600px;
 }
