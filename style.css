@@ -603,3 +603,142 @@ section.visible {
 .nav-icons a:hover {
   color: var(--green);
 }
+@media (max-width: 768px) {
+  /* NAVBAR */
+  #navbar {
+    padding: 14px 5vw;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-name {
+    font-size: 16px;
+  }
+
+  /* HERO */
+  #hero {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 100px 6vw 60px;
+    gap: 40px;
+    min-height: 100vh;
+  }
+
+  .hero-name {
+    font-size: 44px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-greeting {
+    font-size: 22px;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+  }
+
+  .hero-links {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-ascii {
+    display: none;
+  }
+
+  /* SECTIONS */
+  #about, #projects, #experience,
+  #skills, #learning, #blog, #contact {
+    padding: 70px 6vw;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .section-header::after {
+    width: 80px;
+  }
+
+  /* ABOUT */
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-image {
+    order: -1;
+  }
+
+  .about-text p {
+    font-size: 17px;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  /* LEARNING */
+  .learning-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* EXPERIENCE */
+  .experience-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .experience-title {
+    font-size: 18px;
+  }
+
+  .experience-desc {
+    font-size: 16px;
+  }
+
+  /* BLOG */
+  .blog-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 0;
+}
+
+.blog-arrow {
+  display: none;
+}
+
+  .blog-date {
+    display: none;
+  }
+
+  .blog-title {
+    font-size: 17px;
+  }
+
+  /* CONTACT */
+  .contact-link {
+    font-size: 17px;
+  }
+
+  /* FOOTER */
+  footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
