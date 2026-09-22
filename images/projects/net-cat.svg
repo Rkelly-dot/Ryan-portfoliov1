@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Net-Cat — TCP chat server built in Go">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#020c1b"/>
+      <stop offset="0.55" stop-color="#0a192f"/>
+      <stop offset="1" stop-color="#112240"/>
+    </linearGradient>
+    <linearGradient id="term" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#112240"/>
+      <stop offset="1" stop-color="#0a192f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#64ffda" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#64ffda" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#64ffda" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+
+  <!-- ambient glow behind the hub -->
+  <circle cx="1240" cy="360" r="330" fill="url(#glow)"/>
+
+  <!-- ============ terminal ============ -->
+  <g>
+    <rect x="80" y="150" width="820" height="560" rx="18" fill="url(#term)" stroke="#233554" stroke-width="2"/>
+    <path d="M80 196h820" stroke="#233554" stroke-width="2"/>
+    <circle cx="118" cy="173" r="8" fill="#ff5f57"/>
+    <circle cx="148" cy="173" r="8" fill="#febc2e"/>
+    <circle cx="178" cy="173" r="8" fill="#28c840"/>
+    <text x="210" y="180" font-family="monospace" font-size="22" fill="#8892b0">net-cat — tcp chat server</text>
+
+    <g font-family="monospace" font-size="25">
+      <text x="118" y="262" fill="#64ffda">$ ./TCPChat 2525</text>
+      <text x="118" y="308" fill="#8892b0">listening on port 2525 …</text>
+      <text x="118" y="354" fill="#a8b2d1">Anonymous1 has joined the chat</text>
+      <text x="118" y="400" fill="#a8b2d1">Anonymous2 has joined the chat</text>
+      <text x="118" y="446" fill="#64ffda">
+        <tspan fill="#64ffda">Anonymous1:</tspan>
+        <tspan fill="#ccd6f6"> hello everyone</tspan>
+      </text>
+      <text x="118" y="492" fill="#64ffda">
+        <tspan fill="#64ffda">Anonymous2:</tspan>
+        <tspan fill="#ccd6f6"> testing concurrency right now</tspan>
+      </text>
+      <text x="118" y="538" fill="#64ffda">
+        <tspan fill="#64ffda">Anonymous1:</tspan>
+        <tspan fill="#ccd6f6"> messages reach every client</tspan>
+      </text>
+      <text x="118" y="584" fill="#8892b0">3 clients connected · 0 races detected</text>
+      <text x="118" y="640" fill="#64ffda">▍</text>
+    </g>
+  </g>
+
+  <!-- ============ hub / network diagram ============ -->
+  <g stroke="#64ffda" stroke-opacity="0.45" stroke-width="2" fill="none">
+    <path d="M1150 240 L1240 360"/>
+    <path d="M1360 240 L1240 360"/>
+    <path d="M1150 480 L1240 360"/>
+    <path d="M1360 480 L1240 360"/>
+  </g>
+
+  <circle cx="1240" cy="360" r="62" fill="#112240" stroke="#64ffda" stroke-width="2.5"/>
+  <text x="1240" y="352" text-anchor="middle" font-family="'Anton', 'Arial Narrow', sans-serif"
+        font-size="30" letter-spacing="2" fill="#e6f1ff">HUB</text>
+  <text x="1240" y="382" text-anchor="middle" font-family="monospace" font-size="16" fill="#64ffda">pattern</text>
+
+  <g>
+    <circle cx="1150" cy="240" r="40" fill="#0a192f" stroke="#233554" stroke-width="2"/>
+    <circle cx="1360" cy="240" r="40" fill="#0a192f" stroke="#233554" stroke-width="2"/>
+    <circle cx="1150" cy="480" r="40" fill="#0a192f" stroke="#233554" stroke-width="2"/>
+    <circle cx="1360" cy="480" r="40" fill="#0a192f" stroke="#233554" stroke-width="2"/>
+    <g font-family="monospace" font-size="15" fill="#8892b0" text-anchor="middle">
+      <text x="1150" y="246">client</text>
+      <text x="1360" y="246">client</text>
+      <text x="1150" y="486">client</text>
+      <text x="1360" y="486">client</text>
+    </g>
+  </g>
+
+  <g font-family="monospace" font-size="17" fill="#64ffda" text-anchor="middle">
+    <text x="1240" y="250">goroutine</text>
+    <text x="1240" y="492">mutex</text>
+  </g>
+
+  <!-- ============ caption ============ -->
+  <text x="1520" y="840" text-anchor="end" font-family="'Anton', 'Arial Narrow', sans-serif"
+        font-size="26" letter-spacing="4" fill="#64ffda" fill-opacity="0.85">GO · TCP · CONCURRENCY</text>
+  <text x="80" y="840" font-family="monospace" font-size="18" fill="#8892b0">
+    net-cat — static preview
+  </text>
+</svg>
