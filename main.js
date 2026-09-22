@@ -309,7 +309,7 @@
      --------------------------------------------------------- */
   // Free, no server: https://web3forms.com → enter your email, paste the key
   // it sends you here. It is a public form ID, not a secret.
-  const CONTACT_ACCESS_KEY = "";
+  const CONTACT_ACCESS_KEY = "713bf0e3-5d10-4d98-a62f-fa5e6f50f265";
   const FORM_ENDPOINT = "https://api.web3forms.com/submit";
 
   const contactForm = document.querySelector("[data-contact-form]");
