@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Ryan Kelly</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a192f'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='bold' text-anchor='middle' fill='%2364ffda'>R</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=NTR&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav id="navbar">
+    <a class="nav-name" href="index.html">Ryan Kelly</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#articles">Articles</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="mailto:ryank9721@gmail.com" title="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main id="content">
+    <header class="page-hero">
+      <a class="back-link" href="index.html">← back home</a>
+      <h1 class="page-title">/ work</h1>
+      <p class="page-lede">
+        Backend systems, platforms, and products I've designed and shipped —
+        the full breakdown of what each one does, my role, and what I learned.
+      </p>
+    </header>
+
+    <div class="work-list">
+      <!-- ============ NET-CAT ============ -->
+      <article class="work-item" id="net-cat">
+        <div class="work-head" data-reveal>
+          <span class="work-index">01</span>
+          <h2 class="work-name">Net-Cat</h2>
+          <span class="work-year">2026</span>
+        </div>
+        <div class="work-media-wrap" data-reveal>
+          <figure class="work-media">
+          <img src="images/projects/net-cat.svg" data-label="Net-Cat" alt="Net-Cat project" width="1600" height="900" loading="lazy" decoding="async" />
+        </figure>
+        </div>
+        <div class="work-body">
+          <p class="work-desc" data-reveal>
+            A TCP chat server clone built in Go. Supports multiple clients concurrently
+            using goroutines, channels, and mutexes following the Hub pattern.
+          </p>
+          <dl class="work-meta" data-reveal>
+            <div class="work-meta-row">
+              <dt>Role</dt>
+              <dd>Backend Developer</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Stack</dt>
+              <dd>
+                <span class="tag">Go</span>
+                <span class="tag">TCP</span>
+                <span class="tag">Concurrency</span>
+              </dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Learned</dt>
+              <dd>Goroutines, channels, race condition testing, concurrency patterns, mutexes.</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Links</dt>
+              <dd class="work-links">
+                <a href="https://github.com/Rkelly-dot/net-cat.git" target="_blank" rel="noopener">GitHub ↗</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- ============ ELIMULOCAL ============ -->
+      <article class="work-item" id="elimulocal">
+        <div class="work-head" data-reveal>
+          <span class="work-index">02</span>
+          <h2 class="work-name">ElimuLocal</h2>
+          <span class="work-year">2026</span>
+        </div>
+        <div class="work-media-wrap" data-reveal>
+          <figure class="work-media">
+          <img src="images/projects/elimulocal.jpg" data-label="ElimuLocal" alt="ElimuLocal project" width="1620" height="1080" loading="lazy" decoding="async" />
+        </figure>
+        </div>
+        <div class="work-body">
+          <p class="work-desc" data-reveal>
+            A free offline-capable resource sharing platform for Kenyan university
+            students. Supports notes, past papers, textbooks, and lecture videos.
+          </p>
+          <dl class="work-meta" data-reveal>
+            <div class="work-meta-row">
+              <dt>Role</dt>
+              <dd>Fullstack Developer</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Stack</dt>
+              <dd>
+                <span class="tag">Go</span>
+                <span class="tag">Turso</span>
+                <span class="tag">Backblaze B2</span>
+                <span class="tag">Cloudflare</span>
+                <span class="tag">Render</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">HTML/CSS</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Docker</span>
+              </dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Learned</dt>
+              <dd>File storage, auth, deployment, Cloudflare, Docker &amp; Docker Compose, SQL.</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Links</dt>
+              <dd class="work-links">
+                <a href="https://github.com/Rkelly-dot/elimulocal.git" target="_blank" rel="noopener">GitHub ↗</a>
+                <a href="https://elimulocal.onrender.com/" target="_blank" rel="noopener">Live ↗</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- ============ STYLEVAULT ============ -->
+      <article class="work-item" id="stylevault">
+        <div class="work-head" data-reveal>
+          <span class="work-index">03</span>
+          <h2 class="work-name">StyleVault</h2>
+          <span class="work-year">2026</span>
+        </div>
+        <div class="work-media-wrap" data-reveal>
+          <figure class="work-media">
+          <img src="images/projects/stylevault.jpg" data-label="StyleVault" alt="StyleVault project" width="1620" height="1080" loading="lazy" decoding="async" />
+        </figure>
+        </div>
+        <div class="work-body">
+          <div class="work-intro" data-reveal>
+            <p class="work-desc">
+              A fashion inspiration organizer built for stylists, creative directors,
+              archive collectors, and anyone whose camera roll is 80% outfit screenshots.
+              Organize fits into curated collections, tag them by mood, and reorder your
+              archive exactly how you see it.
+            </p>
+            <p class="work-note">
+              Not a Pinterest clone — an editorial-grade personal workspace: dark, minimal,
+              and built to feel like a fashion publication rather than a productivity app.
+            </p>
+          </div>
+          <dl class="work-meta" data-reveal>
+            <div class="work-meta-row">
+              <dt>Role</dt>
+              <dd>Fullstack Developer</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Stack</dt>
+              <dd>
+                <span class="tag">Vite</span>
+                <span class="tag">React</span>
+                <span class="tag">TailwindCSS</span>
+                <span class="tag">Supabase</span>
+                <span class="tag">React Router</span>
+              </dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Learned</dt>
+              <dd>SQL migrations, database querying, deployment, drag and drop functionality.</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Next</dt>
+              <dd>Search across collections, favourites, automatic cover updates and a mobile polish pass.</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Links</dt>
+              <dd class="work-links">
+                <a href="https://github.com/Rkelly-dot/StyleVault" target="_blank" rel="noopener">GitHub ↗</a>
+                <a href="https://style-vault-rosy.vercel.app/" target="_blank" rel="noopener">Live ↗</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="feature-block" data-reveal>
+          <h3 class="feature-heading">What it does</h3>
+          <ul class="feature-grid">
+            <li class="feature">
+              <h4>Collections</h4>
+              <p>Group inspiration into named archives — Dark Streetwear, Opium, Archive Fits, Techwear and more.</p>
+            </li>
+            <li class="feature">
+              <h4>Masonry Grid</h4>
+              <p>A Pinterest-style layout with varying image heights for the collection detail view.</p>
+            </li>
+            <li class="feature">
+              <h4>Drag &amp; Drop Reordering</h4>
+              <p>Pick up any inspiration card and reorder it within a collection, with smooth lift, scale and shadow animations.</p>
+            </li>
+            <li class="feature">
+              <h4>Mood Tagging</h4>
+              <p>Tag each piece — Streetwear, Avant-Garde, Minimalist, Archive, Luxury, Techwear, Opium, Casual — and filter a collection by mood.</p>
+            </li>
+            <li class="feature">
+              <h4>Add Inspiration</h4>
+              <p>Upload an image, write a caption and assign a mood tag in a single modal.</p>
+            </li>
+            <li class="feature">
+              <h4>Empty States</h4>
+              <p>Clean, on-brand messaging whenever a collection has no pieces yet.</p>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ============ WAPI ============ -->
+      <article class="work-item" id="wapi">
+        <div class="work-head" data-reveal>
+          <span class="work-index">04</span>
+          <h2 class="work-name">Wapi</h2>
+          <span class="work-year">2026</span>
+        </div>
+        <div class="work-media-wrap" data-reveal>
+          <figure class="work-media">
+          <img src="images/projects/wapi.jpg" data-label="Wapi" alt="Wapi project" width="1200" height="800" loading="lazy" decoding="async" />
+        </figure>
+        </div>
+        <div class="work-body">
+          <p class="work-desc" data-reveal>
+            A creator-focused live streaming platform tailored for the Kenyan market,
+            inspired by Twitch but with a strong emphasis on local content creation and
+            monetization. The platform enables Kenyan creators to broadcast live content.
+          </p>
+          <dl class="work-meta" data-reveal>
+            <div class="work-meta-row">
+              <dt>Role</dt>
+              <dd>Business Analyst</dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Stack</dt>
+              <dd>
+                <span class="tag">Go</span>
+                <span class="tag">React</span>
+                <span class="tag">React Native</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Docker Compose</span>
+              </dd>
+            </div>
+            <div class="work-meta-row">
+              <dt>Links</dt>
+              <dd class="work-links">
+                <a href="https://wapi-frontend-web.onrender.com/" target="_blank" rel="noopener">Live ↗</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+    </div>
+
+    <div class="work-footer-cta" data-reveal>
+      <p>Want the details on anything here?</p>
+      <a class="btn-primary" href="mailto:ryank9721@gmail.com">Get in touch ↗</a>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER STUB ============ -->
+  <footer id="contact" class="site-footer">
+    <div class="footer-name" aria-hidden="true">RYAN KELLY</div>
+
+    <div class="footer-grid">
+      <div class="footer-photo">
+        <img src="photo.jpg" alt="Ryan Kelly" />
+        <p class="footer-cta">Let's build something real.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Navigate</h4>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#articles">Articles</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Socials</h4>
+        <ul>
+          <li><a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://dev.to/rykelly" target="_blank" rel="noopener">Dev.to <span aria-hidden="true">↗</span></a></li>
+          <li><a href="mailto:ryank9721@gmail.com">Email <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Personal details</h4>
+        <ul>
+          <li>Favourite food — Pizza</li>
+          <li>Favourite football team — Liverpool</li>
+          <li>Eye colour — Black</li>
+          <li>Hobby — Video games</li>
+          <li>Favourite artist — Kendrick</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Details</h4>
+        <ul>
+          <li><a href="mailto:ryank9721@gmail.com">ryank9721@gmail.com</a></li>
+          <li><a href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a></li>
+          <li>Available for full-time &amp; freelance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Ryan Kelly</span>
+      <span>Designed &amp; Built by Ryan Kelly</span>
+      <a href="#" class="to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
