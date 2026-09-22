@@ -3,29 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ryan Kelly</title>
+  <title>Ryan Kelly — Backend Developer (Go)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a192f'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='bold' text-anchor='middle' fill='%2364ffda'>R</text></svg>" />
   <link href="https://fonts.googleapis.com/css2?family=NTR&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav id="navbar">
-    <span class="nav-name">Ryan Kelly</span>
-    <ul class="nav-links">
+    <a class="nav-name" href="index.html">Ryan Kelly</a>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
+      <li><a href="work.html">Work</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#blog">Articles</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#articles">Articles</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-icons">
-      <a href="mailto:ryank9721@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-      <a href="https://github.com/Rkelly-dot" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" title="LinkedIn" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:ryank9721@gmail.com" title="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav>
-  <main id="content">s
+
+  <main id="content">
+    <!-- ============ INTRO / HERO (unchanged from v1) ============ -->
     <section id="hero">
       <div class="hero-content">
         <p class="hero-greeting">hi, I'm</p>
@@ -36,9 +42,9 @@
           that solve real problems.
         </p>
         <div class="hero-links">
-          <a href="https://github.com/Rkelly-dot" target="_blank">GitHub</a>
+          <a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener">GitHub</a>
           <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="resume.pdf" target="_blank">Resume</a>
+          <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
         </div>
       </div>
       <div class="hero-ascii">
@@ -86,12 +92,13 @@
       </div>
     </section>
 
+    <!-- ============ ABOUT (unchanged from v1) ============ -->
     <section id="about">
-      <div class="section-header">
+      <div class="section-header" data-reveal>
         <span class="section-title">/ about me</span>
       </div>
       <div class="about-content">
-        <div class="about-text">
+        <div class="about-text" data-reveal>
           <p>
             I'm a backend developer based in Kisumu, Kenya, focused on building
             practical, real-world systems. I learn by building — picking up concepts
@@ -107,7 +114,7 @@
             where I'm sharpening my craft one project at a time and working collaboratively with my peers.
           </p>
         </div>
-        <div class="about-image">
+        <div class="about-image" data-reveal>
           <div class="image-placeholder">
             <img src="photo.jpg" alt="Photo of Ryan Kelly" class="about-photo" />
           </div>
@@ -115,69 +122,66 @@
       </div>
     </section>
 
+    <!-- ============ PROJECTS (homepage: name + image only) ============ -->
     <section id="projects">
-      <div class="section-header">
+      <div class="section-header" data-reveal>
         <span class="section-title">/ projects</span>
+        <a class="section-link" href="work.html">see all work <span aria-hidden="true">→</span></a>
       </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="card-top">
-            <span class="folder-icon">⌗</span>
-            <div class="card-links">
-              <a href="https://github.com/Rkelly-dot/net-cat.git" target="_blank">GitHub</a>
-            </div>
+      <div class="project-flow">
+        <a class="project-box" href="work.html#net-cat">
+          <div class="project-box-head">
+            <span class="project-box-index">01</span>
+            <h3 class="project-box-name" data-split="char">Net-Cat</h3>
+            <span class="project-box-arrow" aria-hidden="true">↗</span>
           </div>
-          <h3 class="card-title">Net-Cat</h3>
-          <p class="card-desc">
-            A TCP chat server clone built in Go. Supports multiple clients
-            concurrently using goroutines, channels, and mutexes following
-            the Hub pattern.
-          </p>
-          <p class="card-learned">Learned: goroutines, channels, race condition testing, concurrency patterns, mutexes</p>
-          <p class="card-tech">Go · TCP · Concurrency</p>
-        </div>
+          <div class="project-box-media">
+            <img src="images/projects/net-cat.svg" data-label="Net-Cat" alt="Net-Cat project" width="1600" height="900" loading="lazy" decoding="async" />
+          </div>
+        </a>
 
-        <div class="project-card">
-          <div class="card-top">
-            <span class="folder-icon">⌗</span>
-            <div class="card-links">
-              <a href="#" target="_blank">GitHub</a>
-            </div>
+        <a class="project-box" href="work.html#elimulocal">
+          <div class="project-box-head">
+            <span class="project-box-index">02</span>
+            <h3 class="project-box-name" data-split="char">ElimuLocal</h3>
+            <span class="project-box-arrow" aria-hidden="true">↗</span>
           </div>
-          <h3 class="card-title">Forum</h3>
-          <p class="card-desc">
-            A web forum with user authentication, posts, comments,
-            likes/dislikes, and filtering. Built from scratch with no frameworks.
-          </p>
-          <p class="card-learned">Learned: sessions, cookies, SQL, Docker</p>
-          <p class="card-tech">Go · SQLite · Docker · HTML/CSS</p>
-        </div>
+          <div class="project-box-media">
+            <img src="images/projects/elimulocal.jpg" data-label="ElimuLocal" alt="ElimuLocal project" width="1620" height="1080" loading="lazy" decoding="async" />
+          </div>
+        </a>
 
-        <div class="project-card">
-          <div class="card-top">
-            <span class="folder-icon">⌗</span>
-            <div class="card-links">
-              <a href="https://github.com/Rkelly-dot/elimulocal.git" target="_blank">GitHub</a>
-              <a href="https://elimulocal.onrender.com/" target="_blank">Live</a>
-            </div>
+        <a class="project-box" href="work.html#stylevault">
+          <div class="project-box-head">
+            <span class="project-box-index">03</span>
+            <h3 class="project-box-name" data-split="char">StyleVault</h3>
+            <span class="project-box-arrow" aria-hidden="true">↗</span>
           </div>
-          <h3 class="card-title">ElimuLocal</h3>
-          <p class="card-desc">
-            A free offline-capable resource sharing platform for Kenyan university
-            students. Supports notes, past papers, textbooks, and lecture videos.
-          </p>
-          <p class="card-learned">Learned: file storage, auth, deployment, Cloudflare, Docker & Docker Compose, SQL</p>
-          <p class="card-tech">Go · Turso · Backblaze B2 · Cloudflare · Render · JavaScript · HTML/CSS · SQL · Docker</p>
-        </div>
+          <div class="project-box-media">
+            <img src="images/projects/stylevault.jpg" data-label="StyleVault" alt="StyleVault project" width="1620" height="1080" loading="lazy" decoding="async" />
+          </div>
+        </a>
+
+        <a class="project-box" href="work.html#wapi">
+          <div class="project-box-head">
+            <span class="project-box-index">04</span>
+            <h3 class="project-box-name" data-split="char">Wapi</h3>
+            <span class="project-box-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="project-box-media">
+            <img src="images/projects/wapi.jpg" data-label="Wapi" alt="Wapi project" width="1200" height="800" loading="lazy" decoding="async" />
+          </div>
+        </a>
       </div>
     </section>
 
+    <!-- ============ EXPERIENCE (unchanged from v1) ============ -->
     <section id="experience">
-      <div class="section-header">
+      <div class="section-header" data-reveal>
         <span class="section-title">/ experience</span>
       </div>
       <div class="experience-list">
-        <div class="experience-item">
+        <div class="experience-item" data-reveal>
           <div class="experience-left">
             <span class="experience-date">2026</span>
           </div>
@@ -187,12 +191,12 @@
               Participated in a peer-to-peer hands-on training where I built Go-based
               backend systems implementing low-level logic and complex data structures.
               Collaborated on code reviews and automated development environments with
-              Docker & Docker Compose.
+              Docker &amp; Docker Compose.
             </p>
           </div>
         </div>
 
-        <div class="experience-item">
+        <div class="experience-item" data-reveal>
           <div class="experience-left">
             <span class="experience-date">2026</span>
           </div>
@@ -207,7 +211,7 @@
           </div>
         </div>
 
-        <div class="experience-item">
+        <div class="experience-item" data-reveal>
           <div class="experience-left">
             <span class="experience-date">2026</span>
           </div>
@@ -223,12 +227,13 @@
       </div>
     </section>
 
+    <!-- ============ SKILLS (unchanged from v1) ============ -->
     <section id="skills">
-      <div class="section-header">
+      <div class="section-header" data-reveal>
         <span class="section-title">/ skills</span>
       </div>
       <div class="skills-grid">
-        <div class="skill-group">
+        <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Languages</h3>
           <ul class="skill-list">
             <li>Go</li>
@@ -238,7 +243,7 @@
           </ul>
         </div>
 
-        <div class="skill-group">
+        <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Backend</h3>
           <ul class="skill-list">
             <li>TCP Networking</li>
@@ -247,15 +252,16 @@
           </ul>
         </div>
 
-        <div class="skill-group">
+        <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Databases</h3>
           <ul class="skill-list">
             <li>SQLite</li>
             <li>Turso (libsql)</li>
+            <li>Supabase</li>
           </ul>
         </div>
 
-        <div class="skill-group">
+        <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Tools</h3>
           <ul class="skill-list">
             <li>Docker</li>
@@ -268,133 +274,162 @@
       </div>
     </section>
 
+    <!-- ============ CURRENTLY LEARNING (awards-style list) ============ -->
     <section id="learning">
-      <div class="section-header">
+      <div class="section-header" data-reveal>
         <span class="section-title">/ currently learning</span>
       </div>
-      <div class="learning-grid">
-        <div class="learning-card">
-          <span class="learning-icon">⬡</span>
-          <h3 class="learning-title">Distributed Systems</h3>
-          <p class="learning-desc">
-            Exploring how large-scale systems handle consistency, availability,
-            and partition tolerance across multiple nodes.
-          </p>
-        </div>
+      <div class="awards-list">
+        <article class="award-row" data-reveal>
+          <span class="award-index">01</span>
+          <div class="award-main">
+            <h3 class="award-title">Distributed Systems</h3>
+            <p class="award-desc">Exploring how large-scale systems handle consistency, availability, and partition tolerance across multiple nodes.</p>
+          </div>
+          <span class="award-status">In progress</span>
+        </article>
 
-        <div class="learning-card">
-          <span class="learning-icon">⬡</span>
-          <h3 class="learning-title">System Design</h3>
-          <p class="learning-desc">
-            Learning how to architect scalable, fault-tolerant backend systems
-            that can handle real-world traffic and load.
-          </p>
-        </div>
+        <article class="award-row" data-reveal>
+          <span class="award-index">02</span>
+          <div class="award-main">
+            <h3 class="award-title">System Design</h3>
+            <p class="award-desc">Learning how to architect scalable, fault-tolerant backend systems that can handle real-world traffic and load.</p>
+          </div>
+          <span class="award-status">In progress</span>
+        </article>
 
-        <div class="learning-card">
-          <span class="learning-icon">⬡</span>
-          <h3 class="learning-title">Kubernetes</h3>
-          <p class="learning-desc">
-            Getting hands-on with container orchestration, deployments,
-            services, and managing workloads at scale.
-          </p>
-        </div>
+        <article class="award-row" data-reveal>
+          <span class="award-index">03</span>
+          <div class="award-main">
+            <h3 class="award-title">Kubernetes</h3>
+            <p class="award-desc">Getting hands-on with container orchestration, deployments, services, and managing workloads at scale.</p>
+          </div>
+          <span class="award-status">In progress</span>
+        </article>
 
-        <div class="learning-card">
-          <span class="learning-icon">⬡</span>
-          <h3 class="learning-title">Networking</h3>
-          <p class="learning-desc">
-            Deepening understanding of TCP/IP, DNS, HTTP internals, and
-            how data moves across networks at a low level.
-          </p>
-        </div>
+        <article class="award-row" data-reveal>
+          <span class="award-index">04</span>
+          <div class="award-main">
+            <h3 class="award-title">Networking</h3>
+            <p class="award-desc">Deepening understanding of TCP/IP, DNS, HTTP internals, and how data moves across networks at a low level.</p>
+          </div>
+          <span class="award-status">In progress</span>
+        </article>
       </div>
     </section>
 
-    <section id="blog">
-      <div class="section-header">
-        <span class="section-title">/ Articles</span>
-      </div>
-      <div class="blog-list">
-        <a href="https://dev.to/rykelly/why-project-based-learning-works-how-i-built-a-live-platform-while-learning-go-d4f" target="_blank" class="blog-item">
-          <div class="blog-left">
-            <span class="blog-date">Jun 2026</span>
-          </div>
-          <div class="blog-right">
-            <h3 class="blog-title">Why Project-based Learning Works: How I Built a Live Platform while Learning Go</h3>
-            <p class="blog-desc">How building ElimuLocal from scratch taught me more Go than any tutorial ever could.</p>
-            <span class="blog-tag">Go · Productivity · Software</span>
-          </div>
-          <span class="blog-arrow">→</span>
-        </a>
+    <!-- ============ ARTICLES (fanned deck turned into place by the scroll) ============ -->
+    <section id="articles" class="articles-band" data-fan>
+      <div class="articles-inner">
+        <div class="articles-head" data-reveal>
+          <a class="articles-link" href="https://dev.to/rykelly" target="_blank" rel="noopener">see more on dev.to <span aria-hidden="true">↗</span></a>
+          <h2 class="articles-title">/ articles</h2>
+        </div>
 
-        <a href="https://dev.to/rykelly/i-built-a-tcp-chat-server-in-go-before-i-understood-concurrency-heres-what-taught-me-goroutines-1ggd" target="_blank" class="blog-item">
-          <div class="blog-left">
-            <span class="blog-date">Jun 2026</span>
-          </div>
-          <div class="blog-right">
-            <h3 class="blog-title">I Built a TCP Chat Server in Go Before I Understood Concurrency — Here's What Taught Me Goroutines, Channels, and Mutexes</h3>
-            <p class="blog-desc">A hands-on breakdown of concurrency concepts learned by building a NetCat clone in Go.</p>
-            <span class="blog-tag">Go · Concurrency · Networking</span>
-          </div>
-          <span class="blog-arrow">→</span>
-        </a>
-
-        <a href="https://dev.to/rykelly/i-understood-2-of-that-conversation-handling-imposter-syndrome-when-tech-wont-stop-sprinting-2p83" target="_blank" class="blog-item">
-          <div class="blog-left">
-            <span class="blog-date">May 2026</span>
-          </div>
-          <div class="blog-right">
-            <h3 class="blog-title">I Understood 2% of That Conversation — Handling Imposter Syndrome When Tech Won't Stop Sprinting</h3>
-            <p class="blog-desc">On feeling lost in fast-moving tech conversations and how to keep going anyway.</p>
-            <span class="blog-tag">AI · Productivity · Beginners</span>
-          </div>
-          <span class="blog-arrow">→</span>
-        </a>
-
-        <a href="https://dev.to/rykelly/learning-go-over-past-few-months-1inb" target="_blank" class="blog-item">
-          <div class="blog-left">
-            <span class="blog-date">Mar 2026</span>
-          </div>
-          <div class="blog-right">
-            <h3 class="blog-title">Learning Go Over the Past Few Months</h3>
-            <p class="blog-desc">A reflection on my Go learning journey — what clicked, what didn't, and what I built along the way.</p>
-            <span class="blog-tag">Go · Learning · Beginners</span>
-          </div>
-          <span class="blog-arrow">→</span>
-        </a>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="section-header">
-        <span class="section-title">/ contact</span>
-      </div>
-      <div class="contact-content">
-        <p class="contact-desc">
-          I'm always open to interesting conversations, collaborations,
-          or opportunities. My inbox is open — feel free to reach out.
-        </p>
-        <div class="contact-links">
-          <a href="https://github.com/Rkelly-dot" target="_blank" class="contact-link">
-            <span class="contact-icon">⌥</span>
-            GitHub
+        <div class="articles-fan">
+          <a class="article-card" href="https://dev.to/rykelly/why-project-based-learning-works-how-i-built-a-live-platform-while-learning-go-d4f" target="_blank" rel="noopener">
+            <span class="article-face">
+              <span class="article-tag">Go · Productivity · Software</span>
+              <h3 class="article-title">Why Project-based Learning Works: How I Built a Live Platform while Learning Go</h3>
+              <p class="article-desc">How building ElimuLocal from scratch taught me more Go than any tutorial ever could.</p>
+              <span class="article-date">Jun 2026</span>
+              <span class="article-arrow" aria-hidden="true">↗</span>
+            </span>
           </a>
-          <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener" class="contact-link">
-            <span class="contact-icon">⌥</span>
-            LinkedIn
+
+          <a class="article-card" href="https://dev.to/rykelly/i-built-a-tcp-chat-server-in-go-before-i-understood-concurrency-heres-what-taught-me-goroutines-1ggd" target="_blank" rel="noopener">
+            <span class="article-face">
+              <span class="article-tag">Go · Concurrency · Networking</span>
+              <h3 class="article-title">I Built a TCP Chat Server in Go Before I Understood Concurrency</h3>
+              <p class="article-desc">A hands-on breakdown of concurrency concepts learned by building a NetCat clone in Go.</p>
+              <span class="article-date">Jun 2026</span>
+              <span class="article-arrow" aria-hidden="true">↗</span>
+            </span>
           </a>
-          <a href="mailto:ryank9721@gmail.com" class="contact-link">
-            <span class="contact-icon">⌥</span>
-            ryank9721@gmail.com
+
+          <a class="article-card" href="https://dev.to/rykelly/i-understood-2-of-that-conversation-handling-imposter-syndrome-when-tech-wont-stop-sprinting-2p83" target="_blank" rel="noopener">
+            <span class="article-face">
+              <span class="article-tag">AI · Productivity · Beginners</span>
+              <h3 class="article-title">I Understood 2% of That Conversation — Handling Imposter Syndrome</h3>
+              <p class="article-desc">On feeling lost in fast-moving tech conversations and how to keep going anyway.</p>
+              <span class="article-date">May 2026</span>
+              <span class="article-arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+
+          <a class="article-card" href="https://dev.to/rykelly/learning-go-over-past-few-months-1inb" target="_blank" rel="noopener">
+            <span class="article-face">
+              <span class="article-tag">Go · Learning · Beginners</span>
+              <h3 class="article-title">Learning Go Over the Past Few Months</h3>
+              <p class="article-desc">A reflection on my Go learning journey — what clicked, what didn't, and what I built along the way.</p>
+              <span class="article-date">Mar 2026</span>
+              <span class="article-arrow" aria-hidden="true">↗</span>
+            </span>
           </a>
         </div>
       </div>
-      <footer>
-        <p>Designed & Built by Ryan Kelly</p>
-      </footer>
     </section>
   </main>
+
+  <!-- ============ FOOTER STUB ============ -->
+  <footer id="contact" class="site-footer">
+    <div class="footer-name" aria-hidden="true">RYAN KELLY</div>
+
+    <div class="footer-grid">
+      <div class="footer-photo">
+        <img src="photo.jpg" alt="Ryan Kelly" />
+        <p class="footer-cta">Let's build something real.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Navigate</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#articles">Articles</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Socials</h4>
+        <ul>
+          <li><a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://dev.to/rykelly" target="_blank" rel="noopener">Dev.to <span aria-hidden="true">↗</span></a></li>
+          <li><a href="mailto:ryank9721@gmail.com">Email <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Personal details</h4>
+        <ul>
+          <li>Favourite food — Pizza</li>
+          <li>Favourite football team — Liverpool</li>
+          <li>Eye colour — Black</li>
+          <li>Hobby — Video games</li>
+          <li>Favourite artist — Drake</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Details</h4>
+        <ul>
+          <li><a href="mailto:ryank9721@gmail.com">ryank9721@gmail.com</a></li>
+          <li><a href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a></li>
+          <li>Available for full-time &amp; freelance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Ryan Kelly</span>
+      <span>Designed &amp; Built by Ryan Kelly</span>
+      <a href="#" class="to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
   <script src="main.js"></script>
 </body>
 </html>
