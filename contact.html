@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Ryan Kelly</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a192f'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='bold' text-anchor='middle' fill='%2364ffda'>R</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=NTR&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav id="navbar">
+    <a class="nav-name" href="index.html">Ryan Kelly</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#articles">Articles</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="mailto:ryank9721@gmail.com" title="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main id="content">
+    <div class="contact-wrap">
+      <section class="contact-box" aria-labelledby="contact-headline">
+        <h2 class="contact-headline" id="contact-headline" data-split="word">
+          Say hi and tell me what you're building
+        </h2>
+
+        <!-- The message is POSTed to a form service (Web3Forms, wired up in
+             main.js — paste an access key there to switch it on). With no key
+             set it is handed to the visitor's mail app instead, so the form
+             always does something. -->
+        <form class="contact-form" data-contact-form data-mailto="ryank9721@gmail.com">
+          <!-- spam honeypot: people never see or fill this in -->
+          <input type="hidden" name="botcheck" value="" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="contact-row">
+            <div class="contact-field" data-reveal>
+              <label for="field-name">Name</label>
+              <input id="field-name" name="name" type="text" placeholder="Jane Smith" autocomplete="name" required />
+            </div>
+
+            <div class="contact-field" data-reveal>
+              <label for="field-email">Email</label>
+              <input id="field-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="contact-field" data-reveal>
+            <label for="field-subject">What's this about</label>
+            <div class="contact-select">
+              <select id="field-subject" name="subject">
+                <option value="" selected>Select…</option>
+                <option>Freelance project</option>
+                <option>Full-time role</option>
+                <option>Collaboration</option>
+                <option>Just saying hi</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="contact-field" data-reveal>
+            <label for="field-message">Message</label>
+            <textarea id="field-message" name="message" placeholder="I would like to…" required></textarea>
+          </div>
+
+          <button class="contact-submit" type="submit" data-reveal>Send it <span aria-hidden="true">↗</span></button>
+          <p class="contact-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER STUB ============ -->
+  <footer id="contact" class="site-footer">
+    <div class="footer-name" aria-hidden="true">RYAN KELLY</div>
+
+    <div class="footer-grid">
+      <div class="footer-photo">
+        <img src="photo.jpg" alt="Ryan Kelly" />
+        <p class="footer-cta">Let's build something real.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Navigate</h4>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#articles">Articles</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Socials</h4>
+        <ul>
+          <li><a href="https://github.com/Rkelly-dot" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://dev.to/rykelly" target="_blank" rel="noopener">Dev.to <span aria-hidden="true">↗</span></a></li>
+          <li><a href="mailto:ryank9721@gmail.com">Email <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Personal details</h4>
+        <ul>
+          <li>Favourite food — Pizza</li>
+          <li>Favourite football team — Liverpool</li>
+          <li>Eye colour — Black</li>
+          <li>Hobby — Video games</li>
+          <li>Favourite artist — Kendrick</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Details</h4>
+        <ul>
+          <li><a href="mailto:ryank9721@gmail.com">ryank9721@gmail.com</a></li>
+          <li><a href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a></li>
+          <li>Available for full-time &amp; freelance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Ryan Kelly</span>
+      <span>Designed &amp; Built by Ryan Kelly</span>
+      <a href="#" class="to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
