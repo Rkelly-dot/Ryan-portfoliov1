@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- the section titles, redrawn as a particle field behind the page.
+       main.js samples them one section at a time; see section 8 -->
+  <canvas class="section-field" aria-hidden="true"></canvas>
+
   <nav id="navbar">
     <a class="nav-name" href="index.html">Ryan Kelly</a>
     <ul class="nav-links" id="navLinks">
@@ -28,6 +32,9 @@
         <i class="fas fa-bars"></i>
       </button>
     </div>
+
+    <!-- how far down the page you are; width is set from main.js -->
+    <span class="scroll-progress" aria-hidden="true"></span>
   </nav>
 
   <main id="content">
@@ -46,6 +53,13 @@
           <a href="https://www.linkedin.com/in/rykelly28/" target="_blank" rel="noopener">LinkedIn</a>
           <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
         </div>
+
+        <!-- the arcade run — main.js section 10. the road itself is pinned to
+             the bottom of the page; this just starts it -->
+        <button class="hero-play" type="button" data-play
+                aria-label="Start roadtrip, a small arcade run along the bottom of the page">
+          <span class="hero-play-mark" aria-hidden="true">▸</span> play roadtrip
+        </button>
       </div>
 
       <!-- the portrait, drawn as a field of ASCII particles by main.js.
@@ -199,39 +213,39 @@
         <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Languages</h3>
           <ul class="skill-list">
-            <li>Go</li>
-            <li>JavaScript</li>
-            <li>SQL</li>
-            <li>Bash</li>
+            <li data-split="char">Go</li>
+            <li data-split="char">JavaScript</li>
+            <li data-split="char">SQL</li>
+            <li data-split="char">Bash</li>
           </ul>
         </div>
 
         <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Backend</h3>
           <ul class="skill-list">
-            <li>TCP Networking</li>
-            <li>Authentication</li>
-            <li>Concurrency</li>
+            <li data-split="char">TCP Networking</li>
+            <li data-split="char">Authentication</li>
+            <li data-split="char">Concurrency</li>
           </ul>
         </div>
 
         <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Databases</h3>
           <ul class="skill-list">
-            <li>SQLite</li>
-            <li>Turso (libsql)</li>
-            <li>Supabase</li>
+            <li data-split="char">SQLite</li>
+            <li data-split="char">Turso (libsql)</li>
+            <li data-split="char">Supabase</li>
           </ul>
         </div>
 
         <div class="skill-group" data-reveal>
           <h3 class="skill-group-title">Tools</h3>
           <ul class="skill-list">
-            <li>Docker</li>
-            <li>Git</li>
-            <li>Cloudflare</li>
-            <li>Backblaze B2</li>
-            <li>Render</li>
+            <li data-split="char">Docker</li>
+            <li data-split="char">Git</li>
+            <li data-split="char">Cloudflare</li>
+            <li data-split="char">Backblaze B2</li>
+            <li data-split="char">Render</li>
           </ul>
         </div>
       </div>
@@ -333,6 +347,50 @@
       </div>
     </section>
   </main>
+
+  <!-- ============ ROADTRIP (a small run pinned to the bottom of the page) ============ -->
+  <!-- it starts folded down to its bar, so the page is never carrying an open
+       road nobody asked for. the ▴ button or the hero's play button opens it. -->
+  <section class="road is-folded" data-road aria-label="roadtrip, a small arcade run">
+    <!-- a roadblock stops the run with a question about Ryan. the card sits
+         above the strip so the road stays in view, and it can be dismissed
+         outright rather than holding the page hostage. -->
+    <div class="road-card" data-road-card hidden>
+      <button class="road-card-close" type="button" data-road="giveup"
+              aria-label="Give up and end the run">✕</button>
+      <p class="road-question" data-road-question></p>
+      <div class="road-options" data-road-options></div>
+      <p class="road-verdict" data-road-verdict></p>
+    </div>
+
+    <div class="road-strip">
+      <div class="road-hud">
+        <span class="road-name">roadtrip</span>
+        <span class="road-stats">
+          <span class="road-stat">dist <b data-road="dist">0</b>m</span>
+          <span class="road-stat">score <b data-road="score">0</b></span>
+          <span class="road-stat">best <b data-road="best">0</b>m</span>
+          <span class="road-shield" data-road="shield" hidden></span>
+        </span>
+        <button class="road-fold" type="button" data-road="fold"
+                aria-expanded="false" aria-controls="roadStage"
+                aria-label="Open the road">▴</button>
+      </div>
+
+      <div class="road-stage" id="roadStage" data-road-stage tabindex="0"
+           role="application"
+           aria-label="roadtrip: arrow keys or the pointer change lane">
+        <canvas class="road-canvas" data-road-canvas aria-hidden="true"></canvas>
+        <div class="road-prompt" data-road-prompt>
+          <p class="road-message" data-road-message>
+            a roadblock stops you with a question about Ryan.
+          </p>
+          <button class="road-go" type="button" data-road="go">start the run</button>
+          <span class="road-hint">↑ ↓ or pointer to change lane</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ FOOTER STUB ============ -->
   <footer id="contact" class="site-footer">
