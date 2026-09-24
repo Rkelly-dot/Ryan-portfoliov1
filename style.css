@@ -114,19 +114,53 @@ img { display: block; max-width: 100%; }
 }
 
 /* ---------------------------------------------------------
-   Hero (intro — kept from v1)
+   Hero (intro)
+   The portrait sits beside the copy as a field of ASCII
+   particles, drawn character by character in main.js: a
+   square canvas that the copy never overlaps, so neither
+   needs a scrim to stay readable.
    --------------------------------------------------------- */
 #hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 120px 10vw 60px;
   gap: 4vw;
+  padding: 120px 10vw 60px;
   overflow: hidden;
 }
 
-.hero-content { max-width: 620px; }
+/* a flex item, not a layer — main.js sets the canvas width, style.css
+   keeps it square and lets it shrink when the column gets narrow */
+.hero-field {
+  /* the field keeps the size it drew itself at; the copy is what gives
+     way as the viewport narrows. the max-width is the backstop below
+     ~1100px, where the column can no longer hold a full-size field */
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* hidden until the portrait has decoded, then faded in so the hero
+     never flashes an empty box */
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.hero-field.is-ready { opacity: 1; }
+
+.hero-field canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.hero-content {
+  max-width: 620px;
+}
 
 .hero-greeting {
   color: var(--green);
@@ -173,26 +207,6 @@ img { display: block; max-width: 100%; }
   transition: all 0.25s ease;
 }
 .hero-links a:hover { background-color: var(--green-tint); color: var(--white); }
-
-.hero-ascii {
-  color: var(--green);
-  opacity: 0.75;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-shrink: 0;
-  max-width: 45%;
-}
-
-#ascii-art {
-  font-family: monospace;
-  font-size: 5px;
-  line-height: 1.25;
-  letter-spacing: 2px;
-  white-space: pre;
-  margin: 0;
-  overflow: hidden;
-}
 
 /* ---------------------------------------------------------
    Shared section chrome
@@ -926,8 +940,8 @@ section { padding: 100px 5vw; }
 }
 .article-card:hover .article-face,
 .article-card:focus-visible .article-face {
-  --hov-rx: 17deg;
-  --hov-ry: -37deg;
+  --hov-rx: -17deg;
+  --hov-ry: 37deg;
   --hov-y: -16px;
   border-color: rgba(100, 255, 218, 0.55);
   box-shadow: 0 50px 90px -45px rgba(2, 12, 27, 1);
@@ -1093,6 +1107,8 @@ section { padding: 100px 5vw; }
   /* the deck sits still and flatter instead of turning into place */
   .article-card { --fan-rx: -16deg; --fan-ry: 34deg; --fan-y: 0px; }
   .article-card:hover .article-face { --hov-rx: 0deg; --hov-ry: 0deg; --hov-y: 0px; }
+  /* the hero field is still there, it just holds a single frame */
+  .hero-field { transition: none; }
 }
 
 /* ---------------------------------------------------------
@@ -1135,10 +1151,18 @@ section { padding: 100px 5vw; }
     justify-content: center;
     align-items: flex-start;
     padding: 130px 6vw 60px;
-    gap: 40px;
     min-height: 100vh;
   }
-  .hero-ascii { display: none; }
+
+  /* the field moves above the copy and shrinks to fit the column; the
+     size it draws itself at comes from main.js, this only caps it */    .hero-field {
+      order: -1;
+      align-self: center;
+      justify-content: center;
+      max-width: 100%;
+      margin-bottom: 34px;
+    }
+
   .hero-greeting { font-size: 22px; }
 
   section { padding: 70px 6vw; }
