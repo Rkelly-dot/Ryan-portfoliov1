@@ -72,6 +72,21 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--lightest-navy);
 }
 
+/* how far down the page you are — rides the navbar's bottom border and is
+   scaled from main.js, so it never animates on its own */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--green), rgba(100, 255, 218, 0.5));
+  box-shadow: 0 0 12px rgba(100, 255, 218, 0.45);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+}
+
 .nav-name {
   font-family: var(--font-display);
   font-size: 24px;
@@ -112,6 +127,29 @@ img { display: block; max-width: 100%; }
   font-size: 20px;
   cursor: pointer;
 }
+
+/* ---------------------------------------------------------
+   Background field
+   A fixed canvas behind the whole page, holding the section you
+   are reading redrawn as particles (main.js section 8). It sits
+   above the body colour but below #content, so mostly it shows
+   through the gaps between sections and behind the prose.
+   --------------------------------------------------------- */
+.section-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease);
+}
+.section-field.is-live { opacity: 1; }
+
+/* the content has to outrank the fixed field */
+#content,
+.site-footer { position: relative; z-index: 1; }
 
 /* ---------------------------------------------------------
    Hero (intro)
@@ -178,6 +216,18 @@ img { display: block; max-width: 100%; }
   margin-bottom: 14px;
 }
 
+/* the name types itself in on load. main.js wraps each character in its own
+   span, so the line keeps its final width from the first frame and nothing
+   reflows as the characters arrive. */
+.hero-name .char {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  animation: type-in 0.01s step-end both;
+  animation-delay: calc(var(--type-start, 0.45s) + var(--i, 0) * 80ms);
+}
+@keyframes type-in { to { opacity: 1; } }
+
 .cursor { color: var(--green); animation: blink 1s step-end infinite; }
 
 @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
@@ -219,14 +269,30 @@ section { padding: 100px 5vw; }
 }
 
 .section-header {
+  position: relative;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 20px;
   margin-bottom: 48px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--lightest-navy);
 }
+
+/* the rule draws itself in from the left as the section arrives, instead of
+   arriving with the header's fade */
+.section-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--lightest-navy);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.1s var(--ease) 0.12s;
+}
+.section-header.is-visible::after { transform: scaleX(1); }
 
 .section-title {
   font-family: var(--font-body);
@@ -382,9 +448,12 @@ section { padding: 100px 5vw; }
 .project-box-arrow {
   font-size: 22px;
   color: var(--slate);
-  transition: transform 0.35s var(--ease), color 0.35s ease;
+  /* the hover offset and the magnetic pull are separate channels, summed
+     here, so neither cancels the other */
+  translate: calc(var(--mag-x, 0px) + var(--hov-x, 0px)) calc(var(--mag-y, 0px) + var(--hov-y, 0px));
+  transition: translate 0.35s var(--ease), color 0.35s ease;
 }
-.project-box:hover .project-box-arrow { color: var(--green); transform: translate(6px, -6px); }
+.project-box:hover .project-box-arrow { color: var(--green); --hov-x: 6px; --hov-y: -6px; }
 
 .project-box-media {
   position: relative;
@@ -401,6 +470,15 @@ section { padding: 100px 5vw; }
   object-fit: cover;
   object-position: center;
   transition: filter 0.6s var(--ease);
+}
+
+/* the shot drifts inside its frame while the card is travelling (main.js sets
+   --media-y and --media-s). The frame is the same 3:2 as the shot, so the
+   scale exists only to provide the slack the drift needs — it is exactly the
+   drift at its furthest, which means the image is at 1:1 and uncropped the
+   moment the card settles */
+.project-box-media img:not([src$=".svg"]) {
+  transform: translate3d(0, var(--media-y, 0px), 0) scale(var(--media-s, 1));
 }
 /* the vector stand-in keeps its own composition rather than being cropped */
 .project-box-media img[src$=".svg"] { object-fit: contain; }
@@ -496,6 +574,20 @@ section { padding: 100px 5vw; }
   object-fit: cover;
   object-position: center;
 }
+
+/* the shot uncovers from its bottom edge and settles out of a slight scale as
+   the item arrives; both are driven off the wrap's existing data-reveal */
+.work-media-wrap .work-media {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.1s var(--ease) 0.08s;
+}
+.work-media-wrap.is-visible .work-media { clip-path: inset(0 0 0 0); }
+
+.work-media-wrap .work-media img {
+  transform: scale(1.06);
+  transition: transform 1.4s var(--ease);
+}
+.work-media-wrap.is-visible .work-media img { transform: scale(1); }
 .work-media img[src$=".svg"] { object-fit: contain; }
 
 .work-body {
@@ -761,14 +853,61 @@ section { padding: 100px 5vw; }
 /* ---------------------------------------------------------
    Experience (kept from v1)
    --------------------------------------------------------- */
-.experience-list { display: flex; flex-direction: column; gap: 40px; }
+/* the rail: a faint track the whole way down, and a mint fill that follows
+   the scroll and lights each entry's marker as it reaches it (main.js sets
+   --timeline and the is-lit class from one shared trigger line) */
+.experience-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-left: 34px;
+}
+
+.experience-list::before,
+.experience-list::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+}
+.experience-list::before { background: var(--lightest-navy); }
+.experience-list::after {
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+  transform: scaleY(var(--timeline, 0));
+  transform-origin: top center;
+}
 
 .experience-item {
+  position: relative;
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 20px;
   padding-bottom: 40px;
   border-bottom: 1px solid var(--lightest-navy);
+}
+
+/* the marker, punched through the rail with a ring of page colour */
+.experience-item::before {
+  content: "";
+  position: absolute;
+  left: -33px;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lightest-navy);
+  box-shadow: 0 0 0 4px var(--navy);
+  transform: translateX(-50%);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.experience-item.is-lit::before {
+  background: var(--green);
+  box-shadow: 0 0 0 4px var(--navy), 0 0 14px rgba(100, 255, 218, 0.75);
 }
 .experience-item:last-child { border-bottom: none; }
 
@@ -795,9 +934,51 @@ section { padding: 100px 5vw; }
 
 .skill-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 
-.skill-list li { color: var(--slate); font-size: 18px; transition: color 0.2s ease; }
+.skill-list li {
+  color: var(--slate);
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
 .skill-list li::before { content: "▹ "; color: var(--green); }
 .skill-list li:hover { color: var(--green); }
+
+/* each skill types in, character by character (JS wraps them in .char).
+   the spans are laid out from the first frame even while they are invisible,
+   so the line holds its final width and never re-wraps as the characters land
+   — which is why it is free to wrap normally on a narrow screen.
+   --pre is how many characters came before this line in its group, so a
+   column types top to bottom rather than four lines racing each other. */
+.skill-list li .char {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  transition: opacity 0.12s linear;
+  transition-delay: calc((var(--pre, 0) + var(--i, 0)) * 55ms);
+}
+.skill-list li.is-visible .char { opacity: 1; }
+
+/* the caret rides the line that is typing and is gone otherwise. its window
+   is the line's own slice of the group's session: `both` holds the 0% frame
+   before the delay and the 100% frame after it, so only one line shows it. */
+.skill-list li::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.18em;
+  background: var(--green);
+  opacity: 0;
+}
+.skill-list li.is-visible::after {
+  animation: caret-line calc(var(--n, 4) * 55ms + 240ms) linear both;
+  animation-delay: calc(var(--pre, 0) * 55ms);
+}
+@keyframes caret-line {
+  0% { opacity: 0; }
+  6%, 78% { opacity: 1; }
+  100% { opacity: 0; }
+}
 
 /* ---------------------------------------------------------
    Currently learning — awards-style list
@@ -1008,7 +1189,9 @@ section { padding: 100px 5vw; }
 .site-footer {
   border-top: 1px solid var(--lightest-navy);
   margin-top: 60px;
-  padding: 60px 5vw 30px;
+  /* the extra bottom room is for the pinned road: even before it parks itself
+     at the footer, the last of the footer is never sitting under the strip */
+  padding: 60px 5vw 120px;
   background: var(--dark-navy);
 }
 
@@ -1023,6 +1206,8 @@ section { padding: 100px 5vw; }
   -webkit-text-stroke: 1px var(--lightest-navy);
   margin-bottom: 60px;
   user-select: none;
+  /* drifts across as the footer comes up (main.js sets --name-x) */
+  translate: var(--name-x, 0vw) 0;
 }
 
 .footer-grid {
@@ -1085,6 +1270,253 @@ section { padding: 100px 5vw; }
 .to-top:hover { color: var(--white); }
 
 /* ---------------------------------------------------------
+   The start button for the run, and the road itself
+   The button is the invitation; the road is a strip pinned to
+   the bottom of the page, not a panel over it. Everything in
+   it is monospace, because it is pretending to be a terminal.
+   --------------------------------------------------------- */
+.hero-play {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 20px;
+  border: 1px solid var(--lightest-navy);
+  border-radius: 999px;
+  background: rgba(100, 255, 218, 0.04);
+  color: var(--light-slate);
+  font-family: var(--font-body);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  translate: var(--mag-x, 0px) var(--mag-y, 0px);
+  transition: translate 0.35s var(--ease), border-color 0.3s ease,
+    color 0.3s ease, background 0.3s ease;
+}
+.hero-play:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-tint);
+}
+.hero-play-mark { color: var(--green); }
+
+/* the road — a small run pinned to the bottom of the page ---------------- */
+/* it is deliberately a strip and not a screen: it never takes the page over,
+   it slides off at the contact form, and it can be folded away entirely. */
+.road {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  font-family: monospace;
+  /* it is a section in the markup, so the shared section padding has to be
+     cancelled: otherwise the strip floats a hundred pixels off the bottom
+     with a dead band under it that still swallows clicks */
+  padding: 0;
+  margin: 0;
+  transform: translateY(0);
+  transition: transform 0.45s var(--ease);
+}
+/* nudged out of the way while the contact form is on screen */
+.road.is-parked { transform: translateY(calc(100% - 6px)); }
+.road.is-folded .road-stage { display: none; }
+.road.is-folded.is-parked { transform: translateY(100%); }
+
+.road-strip {
+  border-top: 1px solid rgba(100, 255, 218, 0.18);
+  background: linear-gradient(180deg, rgba(17, 34, 64, 0.97), var(--dark-navy));
+  box-shadow: 0 -20px 44px -34px rgba(2, 12, 27, 1);
+}
+
+.road-hud {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 27px;
+  padding: 3px 14px;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+}
+.road-name { color: var(--green); font-size: 11px; letter-spacing: 0.16em; }
+.road-name::before { content: "ryan@portfolio:~$ "; color: var(--slate); }
+
+.road-stats { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+.road-stat {
+  color: var(--slate);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.road-stat b { color: var(--lightest-slate); font-weight: 400; }
+
+.road-shield {
+  color: var(--green);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.road-shield[hidden] { display: none; }
+
+.road-fold {
+  width: 26px;
+  height: 21px;
+  border: 1px solid var(--lightest-navy);
+  border-radius: 6px;
+  background: none;
+  color: var(--slate);
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.road-fold:hover { border-color: var(--green); color: var(--green); }
+
+/* the stage is short on purpose — a lane is one small car tall */
+.road-stage {
+  position: relative;
+  height: 84px;
+  overflow: hidden;
+  background: var(--dark-navy);
+  /* idle, the strip lets a swipe scroll the page as usual, so someone flicking
+     past on a phone is never caught by it */
+  touch-action: pan-y;
+  outline: none;
+}
+/* mid-run a swipe is a lane change, so the page must not move under it */
+.road.is-running .road-stage { touch-action: none; }
+/* the road is the only place arrow keys mean lane changes, so it is reachable
+   by tab and says so when it has focus */
+.road-stage:focus-visible { box-shadow: inset 0 0 0 1px rgba(100, 255, 218, 0.45); }
+.road-canvas { display: block; width: 100%; height: 100%; }
+
+/* one line across the strip: the invitation, and the result */
+.road-prompt {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 16px;
+  background: rgba(2, 12, 27, 0.82);
+}
+.road-prompt[hidden] { display: none; }
+.road-message { color: var(--lightest-slate); font-size: 13px; }
+.road-message.is-fail { color: var(--green); letter-spacing: 0.16em; }
+.road-hint { color: var(--slate); font-size: 11px; }
+
+.road-go {
+  padding: 6px 20px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  background: none;
+  color: var(--green);
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.road-go:hover { background: var(--green); color: var(--dark-navy); }
+
+/* a roadblock stops the run and asks about Ryan. the card sits above the
+   strip, so the road stays in view while you answer. */
+.road-card {
+  position: relative;
+  max-width: min(760px, calc(100% - 28px));
+  margin: 0 auto 8px;
+  padding: 14px 38px 14px 16px;
+  border: 1px solid rgba(100, 255, 218, 0.24);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #0d1d36, var(--navy));
+  box-shadow: 0 30px 60px -40px rgba(2, 12, 27, 1);
+}
+.road-card[hidden] { display: none; }
+
+.road-card-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--lightest-navy);
+  border-radius: 7px;
+  background: none;
+  color: var(--slate);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.road-card-close:hover { border-color: var(--green); color: var(--green); }
+
+.road-question { color: var(--lightest-slate); font-size: 13px; margin-bottom: 10px; }
+.road-question::before { content: "? "; color: var(--green); }
+.road-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.road-option {
+  flex: 1 1 190px;
+  padding: 8px 12px;
+  border: 1px solid var(--lightest-navy);
+  border-radius: 9px;
+  background: none;
+  color: var(--slate);
+  font-family: monospace;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.road-option:hover { border-color: var(--green); color: var(--green); background: var(--green-tint); }
+.road-option.is-right { border-color: var(--green); color: var(--green); background: var(--green-tint); }
+.road-option.is-wrong { border-color: #ff8f8f; color: #ff8f8f; }
+
+.road-verdict {
+  min-height: 14px;
+  margin-top: 9px;
+  color: var(--slate);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.road-verdict.is-right { color: var(--green); }
+
+
+
+@media (max-width: 768px) {
+  .road-stage { height: 72px; }
+  .road-hud { gap: 10px; padding: 3px 10px; }
+  .road-name::before { content: "$ "; }
+  /* keep the two readouts that matter during a run, drop the record */
+  .road-stats .road-stat:nth-child(3) { display: none; }
+  .road-hint { display: none; }
+  /* a question has to stay readable on a phone, so the options stack */
+  .road-card { padding: 12px 36px 12px 12px; }
+  .road-option { flex-basis: 100%; }
+}
+
+/* ---------------------------------------------------------
+   Magnetic links
+   main.js leans each of these a few pixels toward the pointer
+   (--mag-x / --mag-y) and eases it back on the way out. The
+   defaults are zero, so nothing happens at all without the JS
+   — including for anyone who asked for less motion.
+   --------------------------------------------------------- */
+.nav-name,
+.nav-links a,
+.nav-icons a,
+.section-link,
+.to-top {
+  translate: var(--mag-x, 0px) var(--mag-y, 0px);
+  transition: translate 0.35s var(--ease);
+}
+
+/* these transition a colour as well, so both are listed rather than one
+   shorthand quietly replacing the other */
+.nav-links a { transition: translate 0.35s var(--ease), color 0.2s ease; }
+
+/* this one already transitions `all`, so translate comes along for free */
+.hero-links a { translate: var(--mag-x, 0px) var(--mag-y, 0px); }
+
+/* ---------------------------------------------------------
    Reveal-on-scroll + motion
    --------------------------------------------------------- */
 [data-reveal] {
@@ -1101,14 +1533,32 @@ section { padding: 100px 5vw; }
   /* cards stay stacked in place, but nothing travels with the scroll */
   .project-box { transform: none; filter: none; }
   .project-box-media::after { display: none; }
+  /* the shots sit still, uncropped, and their frames are never clipped.
+     written to match the parallax selector's specificity, or the transform
+     above would win */
+  .project-box-media img:not([src$=".svg"]) { transform: none; }
   /* reveals land instantly instead of travelling or de-blurring */
   .project-box-name .char,
   .contact-headline .word { opacity: 1; filter: none; translate: 0 0; transition: none; }
+  /* the name is simply there, rather than typing itself in */
+  .hero-name .char { opacity: 1; animation: none; }
   /* the deck sits still and flatter instead of turning into place */
   .article-card { --fan-rx: -16deg; --fan-ry: 34deg; --fan-y: 0px; }
   .article-card:hover .article-face { --hov-rx: 0deg; --hov-ry: 0deg; --hov-y: 0px; }
   /* the hero field is still there, it just holds a single frame */
   .hero-field { transition: none; }
+
+  /* the rest of the page's scroll furniture, all landed */
+  .section-header::after { transform: scaleX(1); transition: none; }
+  .work-media-wrap .work-media { clip-path: none; transition: none; }
+  .work-media-wrap .work-media img { transform: none; transition: none; }
+  .skill-list li .char { opacity: 1; transition: none; }
+  .skill-list li::after { display: none; }
+  .experience-list::after { transform: scaleY(1); }
+  .experience-item::before { background: var(--green); }
+  .footer-name { translate: 0vw 0; }
+  /* the watermark field is not worth any frames if nothing may move */
+  .section-field { display: none; }
 }
 
 /* ---------------------------------------------------------
@@ -1188,7 +1638,9 @@ section { padding: 100px 5vw; }
   .feature-grid { grid-template-columns: 1fr; gap: 16px; }
   .feature { padding: 20px; }
 
+  .experience-list { padding-left: 26px; }
   .experience-item { grid-template-columns: 1fr; gap: 4px; }
+  .experience-item::before { left: -25px; }
   .experience-title { font-size: 18px; }
   .experience-desc { font-size: 16px; }
 
